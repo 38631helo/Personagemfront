@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgDefault" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="holographic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="25%" stop-color="#818cf8"/>
+      <stop offset="50%" stop-color="#c084fc"/>
+      <stop offset="75%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <filter id="glowDefault" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="560" rx="16" fill="url(#bgDefault)"/>
+
+  <!-- Geometric Grid Pattern -->
+  <g stroke="#64748b" stroke-width="0.5" opacity="0.2">
+    <line x1="50" y1="0" x2="50" y2="560"/>
+    <line x1="150" y1="0" x2="150" y2="560"/>
+    <line x1="250" y1="0" x2="250" y2="560"/>
+    <line x1="350" y1="0" x2="350" y2="560"/>
+    <line x1="0" y1="100" x2="400" y2="100"/>
+    <line x1="0" y1="200" x2="400" y2="200"/>
+    <line x1="0" y1="300" x2="400" y2="300"/>
+    <line x1="0" y1="400" x2="400" y2="400"/>
+  </g>
+
+  <!-- Outer Frames -->
+  <rect x="18" y="18" width="364" height="524" rx="12" fill="none" stroke="url(#holographic)" stroke-width="2.5" opacity="0.8"/>
+  <rect x="26" y="26" width="348" height="508" rx="8" fill="none" stroke="#94a3b8" stroke-width="0.8" opacity="0.3" stroke-dasharray="6 6"/>
+
+  <!-- Mystery Diamond Emblem -->
+  <g transform="translate(200, 220)">
+    <!-- Outer Diamond -->
+    <polygon points="0,-75 75,0 0,75 -75,0" fill="#0f172a" stroke="url(#holographic)" stroke-width="3" filter="url(#glowDefault)"/>
+    <!-- Inner Diamond -->
+    <polygon points="0,-55 55,0 0,55 -55,0" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" opacity="0.7"/>
+
+    <!-- Star / Question / Sparkle Icon -->
+    <path d="M 0 -35 L 8 -12 L 32 -12 L 13 2 L 20 25 L 0 12 L -20 25 L -13 2 L -32 -12 L -8 -12 Z" fill="url(#holographic)"/>
+    <circle r="6" fill="#ffffff" filter="url(#glowDefault)"/>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(200, 65)">
+    <rect x="-90" y="-14" width="180" height="28" rx="14" fill="#0f172a" stroke="url(#holographic)" stroke-width="1.5"/>
+    <text x="0" y="4" text-anchor="middle" fill="#f8fafc" font-family="'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="11" letter-spacing="2">CARTA COLECIONÁVEL</text>
+  </g>
+
+  <!-- Bottom Identity Area -->
+  <g transform="translate(200, 420)">
+    <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="'Segoe UI', Montserrat, sans-serif" font-weight="900" font-size="24" letter-spacing="3">PERSONAGEM</text>
+    <text x="0" y="24" text-anchor="middle" fill="#94a3b8" font-family="'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="13" letter-spacing="2">EDITION COLLECTOR</text>
+    <line x1="-80" y1="36" x2="80" y2="36" stroke="#475569" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="52" text-anchor="middle" fill="#64748b" font-family="'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="10" letter-spacing="2">GAME CARDS ARCHIVE</text>
+  </g>
+</svg>

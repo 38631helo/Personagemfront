@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgDoom" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140505"/>
+      <stop offset="50%" stop-color="#240707"/>
+      <stop offset="100%" stop-color="#0a0202"/>
+    </linearGradient>
+    <linearGradient id="fireInferno" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#7f1d1d"/>
+      <stop offset="50%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <linearGradient id="slayerVisor" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="50%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="glowDoom" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="560" rx="16" fill="url(#bgDoom)"/>
+
+  <!-- Aggressive Industrial Grate lines -->
+  <g stroke="#dc2626" stroke-width="1" opacity="0.2">
+    <line x1="30" y1="90" x2="370" y2="430"/>
+    <line x1="30" y1="130" x2="370" y2="470"/>
+    <line x1="370" y1="90" x2="30" y2="430"/>
+    <line x1="370" y1="130" x2="30" y2="470"/>
+  </g>
+
+  <!-- Outer Frames -->
+  <rect x="18" y="18" width="364" height="524" rx="12" fill="none" stroke="url(#fireInferno)" stroke-width="2.5" opacity="0.8"/>
+  <rect x="26" y="26" width="348" height="508" rx="8" fill="none" stroke="#ef4444" stroke-width="0.8" opacity="0.3" stroke-dasharray="12 4"/>
+
+  <!-- Heavy Slayer Armor Plates / Chevrons in Corners -->
+  <polygon points="26,26 56,26 26,56" fill="#dc2626" opacity="0.8"/>
+  <polygon points="374,26 344,26 374,56" fill="#dc2626" opacity="0.8"/>
+  <polygon points="26,534 56,534 26,504" fill="#dc2626" opacity="0.8"/>
+  <polygon points="374,534 344,534 374,504" fill="#dc2626" opacity="0.8"/>
+
+  <!-- Central Mark of the Slayer Emblem -->
+  <g transform="translate(200, 220)">
+    <!-- Pentagonal Outer Shield -->
+    <polygon points="0,-90 75,-40 55,60 0,90 -55,60 -75,-40" fill="#1b0808" stroke="#dc2626" stroke-width="3" filter="url(#glowDoom)"/>
+
+    <!-- Central Praetor Visor Motif -->
+    <path d="M -42 -15 Q 0 -35 42 -15 L 34 10 Q 0 -5 -34 10 Z" fill="url(#slayerVisor)" filter="url(#glowDoom)"/>
+
+    <!-- Slayer Crucible / Rune Symbol Silhouette -->
+    <path d="M -8 -60 L 8 -60 L 8 40 L 22 30 L 26 42 L 0 65 L -26 42 L -22 30 L -8 40 Z" fill="#ef4444"/>
+    <line x1="-35" y1="-30" x2="35" y2="-30" stroke="#f97316" stroke-width="3"/>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(200, 65)">
+    <rect x="-85" y="-14" width="170" height="28" rx="14" fill="#1f0707" stroke="#ef4444" stroke-width="1.5"/>
+    <circle cx="-65" cy="0" r="4" fill="#f97316" filter="url(#glowDoom)"/>
+    <text x="0" y="4" text-anchor="middle" fill="#fee2e2" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="12" letter-spacing="3">DOOM • 2016</text>
+  </g>
+
+  <!-- Bottom Identity Area -->
+  <g transform="translate(200, 420)">
+    <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="'Impact', 'Arial Black', sans-serif" font-weight="900" font-size="28" letter-spacing="4">DOOM SLAYER</text>
+    <text x="0" y="24" text-anchor="middle" fill="#f97316" font-family="'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="13" letter-spacing="3">ARMADURA PRAETOR</text>
+    <line x1="-80" y1="36" x2="80" y2="36" stroke="#dc2626" stroke-width="1.5" opacity="0.7"/>
+    <text x="0" y="52" text-anchor="middle" fill="#fca5a5" font-family="'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="10" letter-spacing="2">TEMIDO PELO INFERNO</text>
+  </g>
+</svg>

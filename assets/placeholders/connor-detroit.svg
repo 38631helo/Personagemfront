@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgConnor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050d1a"/>
+      <stop offset="50%" stop-color="#0b1b33"/>
+      <stop offset="100%" stop-color="#020813"/>
+    </linearGradient>
+    <linearGradient id="cyberBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0066ff"/>
+    </linearGradient>
+    <filter id="glowConnor" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="560" rx="16" fill="url(#bgConnor)"/>
+
+  <!-- Tech Grid Pattern -->
+  <g stroke="#00f0ff" stroke-width="0.5" opacity="0.15">
+    <line x1="40" y1="0" x2="40" y2="560"/>
+    <line x1="120" y1="0" x2="120" y2="560"/>
+    <line x1="200" y1="0" x2="200" y2="560"/>
+    <line x1="280" y1="0" x2="280" y2="560"/>
+    <line x1="360" y1="0" x2="360" y2="560"/>
+    <line x1="0" y1="80" x2="400" y2="80"/>
+    <line x1="0" y1="180" x2="400" y2="180"/>
+    <line x1="0" y1="280" x2="400" y2="280"/>
+    <line x1="0" y1="380" x2="400" y2="380"/>
+    <line x1="0" y1="480" x2="400" y2="480"/>
+  </g>
+
+  <!-- Outer Frame -->
+  <rect x="18" y="18" width="364" height="524" rx="12" fill="none" stroke="url(#cyberBlue)" stroke-width="2" opacity="0.6"/>
+  <rect x="26" y="26" width="348" height="508" rx="8" fill="none" stroke="#00f0ff" stroke-width="0.75" opacity="0.3" stroke-dasharray="8 4"/>
+
+  <!-- Corner Brackets -->
+  <path d="M 30 50 L 30 30 L 50 30" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+  <path d="M 370 50 L 370 30 L 350 30" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+  <path d="M 30 510 L 30 530 L 50 530" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+  <path d="M 370 510 L 370 530 L 350 530" fill="none" stroke="#00f0ff" stroke-width="2.5"/>
+
+  <!-- Central Motif: Android RK800 LED Circle -->
+  <g transform="translate(200, 220)">
+    <!-- Outer Pulse Ring -->
+    <circle r="92" fill="none" stroke="#00f0ff" stroke-width="1.5" opacity="0.3"/>
+    <circle r="80" fill="none" stroke="#0066ff" stroke-width="1" stroke-dasharray="6 6" opacity="0.5"/>
+    <circle r="68" fill="#041224" stroke="url(#cyberBlue)" stroke-width="3" filter="url(#glowConnor)"/>
+
+    <!-- Android LED Ring Accent -->
+    <path d="M -54 -20 A 58 58 0 0 1 54 -20" fill="none" stroke="#00f0ff" stroke-width="5" stroke-linecap="round" filter="url(#glowConnor)"/>
+
+    <!-- Inner Hexagon -->
+    <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" fill="#071a33" stroke="#00f0ff" stroke-width="1.5" opacity="0.8"/>
+
+    <!-- Model Code -->
+    <text x="0" y="5" text-anchor="middle" fill="#00f0ff" font-family="'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="16" letter-spacing="3">RK800</text>
+    <text x="0" y="22" text-anchor="middle" fill="#7dd3fc" font-family="'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="9" letter-spacing="2">CYBERLIFE</text>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(200, 65)">
+    <rect x="-85" y="-14" width="170" height="28" rx="14" fill="#03152b" stroke="#00f0ff" stroke-width="1.5" opacity="0.9"/>
+    <circle cx="-65" cy="0" r="4" fill="#00f0ff" filter="url(#glowConnor)"/>
+    <text x="0" y="4" text-anchor="middle" fill="#e0f2fe" font-family="'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="11" letter-spacing="2">DETROIT • 2018</text>
+  </g>
+
+  <!-- Bottom Identity Area -->
+  <g transform="translate(200, 420)">
+    <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="'Segoe UI', Montserrat, sans-serif" font-weight="900" font-size="28" letter-spacing="4">CONNOR</text>
+    <text x="0" y="24" text-anchor="middle" fill="#38bdf8" font-family="'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="13" letter-spacing="3">BECOME HUMAN</text>
+    <line x1="-80" y1="36" x2="80" y2="36" stroke="#00f0ff" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="52" text-anchor="middle" fill="#94a3b8" font-family="'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="10" letter-spacing="2">PROTOCOLO INVESTIGATIVO</text>
+  </g>
+</svg>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Coleção digital de cartas colecionáveis de personagens de videogames clássicos e modernos." />
+  <title>Game Cards — Coleção Digital de Personagens</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Estilos Globais -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header / Barra de Navegação -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-link">
+        <div class="logo-icon">🎮</div>
+        <span>GAME<span style="color: var(--primary-accent);">CARDS</span></span>
+      </a>
+
+      <nav aria-label="Navegação Principal">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active"><span>🃏</span> Início</a></li>
+          <li><a href="characters.html" class="nav-link"><span>⚙️</span> Gerenciar Coleção</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Status da Conexão com a API -->
+        <div class="api-status-badge" id="apiStatusBadge" title="Status da API REST">
+          <span class="api-status-dot" id="apiStatusDot"></span>
+          <span id="apiStatusText">Verificando...</span>
+        </div>
+
+        <!-- Botão Alternador de Tema -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar entre tema claro e escuro" title="Alternar Tema">
+          ☀️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-tag">Coleção Digital de Cartas</div>
+        <h1 class="hero-title">
+          Descubra Lendas dos <br />
+          <span class="hero-title-gradient">Videogames em Cartas</span>
+        </h1>
+        <p class="hero-subtitle">
+          Passe o mouse ou toque sobre as cartas misteriosas para revelar a arte,
+          raridade, ano de lançamento original e os atributos de cada herói.
+        </p>
+      </div>
+    </section>
+
+    <!-- Seção do Slider Interativo -->
+    <section class="slider-section" aria-label="Carrossel de Cartas de Personagens">
+      <div class="container">
+        <!-- Controles Superiores do Slider -->
+        <div class="slider-controls-top">
+          <div class="slider-hint">
+            <span>💡</span> Dica: Navegue com as setas do teclado ou arraste para os lados.
+          </div>
+          <div class="slider-nav-arrows">
+            <button id="sliderPrevBtn" class="slider-btn" aria-label="Carta Anterior" title="Carta Anterior">
+              ‹
+            </button>
+            <button id="sliderNextBtn" class="slider-btn" aria-label="Próxima Carta" title="Próxima Carta">
+              ›
+            </button>
+          </div>
+        </div>
+
+        <!-- Feedback de Carregamento / Vazio / Erro -->
+        <div id="sliderStatus" style="display: none;"></div>
+
+        <!-- Viewport do Slider -->
+        <div class="slider-viewport" id="sliderViewport">
+          <div class="slider-track" id="sliderTrack">
+            <!-- As cartas serão injetadas dinamicamente pelo slider.js -->
+          </div>
+        </div>
+
+        <!-- Indicadores de Posição (Dots) -->
+        <div class="slider-dots" id="sliderDots" role="tablist" aria-label="Indicadores de página de cartas"></div>
+
+        <!-- Botão CTA para Gestão -->
+        <div style="text-align: center; margin-top: 3.5rem;">
+          <a href="characters.html" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1rem; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);">
+            <span>📋</span> Ver Catálogo Completo &amp; Gerenciar Cartas
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <p><strong>Game Cards</strong> — Colecionáveis Digitais Full Stack</p>
+        <p style="font-size: 0.8rem; margin-top: 0.25rem;">Node.js • Express • MongoDB • Mongoose • Vanilla JS</p>
+      </div>
+      <div>
+        <a href="characters.html" style="text-decoration: underline; color: var(--primary-accent);">
+          Painel de Gerenciamento &rarr;
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/slider.js"></script>
+  <script>
+    // Inicialização do tema e status na página inicial
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeBtn = document.getElementById('themeToggleBtn');
+      const savedTheme = localStorage.getItem('GAME_CARDS_THEME') || 'dark';
+
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        if (themeBtn) themeBtn.textContent = '🌙';
+      } else {
+        document.body.classList.remove('light-theme');
+        if (themeBtn) themeBtn.textContent = '☀️';
+      }
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const isLight = document.body.classList.toggle('light-theme');
+          localStorage.setItem('GAME_CARDS_THEME', isLight ? 'light' : 'dark');
+          themeBtn.textContent = isLight ? '🌙' : '☀️';
+        });
+      }
+
+      // Health Check do backend
+      async function updateApiBadge() {
+        const dot = document.getElementById('apiStatusDot');
+        const text = document.getElementById('apiStatusText');
+        if (!dot || !text) return;
+
+        try {
+          const res = await window.apiService.healthCheck();
+          if (res && res.status === 'healthy') {
+            dot.className = 'api-status-dot online';
+            text.textContent = 'API Online';
+          } else {
+            dot.className = 'api-status-dot offline';
+            text.textContent = 'API Degradada';
+          }
+        } catch {
+          dot.className = 'api-status-dot offline';
+          text.textContent = 'API Offline';
+        }
+      }
+
+      updateApiBadge();
+      setInterval(updateApiBadge, 25000);
+    });
+  </script>
+</body>
+</html>

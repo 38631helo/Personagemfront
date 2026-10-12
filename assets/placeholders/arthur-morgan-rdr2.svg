@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgArthur" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c0b05"/>
+      <stop offset="50%" stop-color="#3d1308"/>
+      <stop offset="100%" stop-color="#120603"/>
+    </linearGradient>
+    <linearGradient id="sunsetGlow" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#b91c1c"/>
+      <stop offset="45%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <filter id="glowArthur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="560" rx="16" fill="url(#bgArthur)"/>
+
+  <!-- Sun Circle in Distance -->
+  <circle cx="200" cy="210" r="105" fill="url(#sunsetGlow)" opacity="0.85" filter="url(#glowArthur)"/>
+
+  <!-- Mountain Silhouette -->
+  <path d="M 40 280 L 110 215 L 160 255 L 220 190 L 290 260 L 360 210 L 360 300 L 40 300 Z" fill="#180a06"/>
+
+  <!-- Outer Frames -->
+  <rect x="18" y="18" width="364" height="524" rx="12" fill="none" stroke="url(#goldTrim)" stroke-width="2.5" opacity="0.8"/>
+  <rect x="26" y="26" width="348" height="508" rx="8" fill="none" stroke="#f59e0b" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- Western Corner Ornaments -->
+  <g fill="#f59e0b" opacity="0.8">
+    <polygon points="32,32 46,32 46,36 36,36 36,46 32,46"/>
+    <polygon points="368,32 354,32 354,36 364,36 364,46 368,46"/>
+    <polygon points="32,528 46,528 46,524 36,524 36,514 32,514"/>
+    <polygon points="368,528 354,528 354,524 364,524 364,514 368,514"/>
+  </g>
+
+  <!-- Central Outlaw Star Emblem -->
+  <g transform="translate(200, 220)">
+    <circle r="46" fill="#140804" stroke="#f59e0b" stroke-width="2"/>
+    <!-- 8 Point Star -->
+    <path d="M 0 -36 L 9 -12 L 35 -12 L 14 3 L 22 28 L 0 14 L -22 28 L -14 3 L -35 -12 L -9 -12 Z" fill="url(#sunsetGlow)"/>
+    <circle r="8" fill="#180a06" stroke="#fbbf24" stroke-width="1.5"/>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(200, 65)">
+    <rect x="-95" y="-14" width="190" height="28" rx="14" fill="#240c06" stroke="#f59e0b" stroke-width="1.5" opacity="0.95"/>
+    <text x="0" y="4" text-anchor="middle" fill="#fef3c7" font-family="'Georgia', serif" font-weight="700" font-size="11" letter-spacing="2">RED DEAD • 2018</text>
+  </g>
+
+  <!-- Bottom Identity Area -->
+  <g transform="translate(200, 420)">
+    <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="'Georgia', serif" font-weight="900" font-size="26" letter-spacing="3">ARTHUR MORGAN</text>
+    <text x="0" y="24" text-anchor="middle" fill="#fb923c" font-family="'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="13" letter-spacing="3">VAN DER LINDE GANG</text>
+    <line x1="-80" y1="36" x2="80" y2="36" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="52" text-anchor="middle" fill="#cbd5e1" font-family="'Georgia', serif" font-style="italic" font-size="11" letter-spacing="1">"Lendas do Velho Oeste"</text>
+  </g>
+</svg>

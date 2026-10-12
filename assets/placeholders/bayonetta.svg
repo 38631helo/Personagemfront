@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgBayo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0517"/>
+      <stop offset="50%" stop-color="#1e0b38"/>
+      <stop offset="100%" stop-color="#080210"/>
+    </linearGradient>
+    <linearGradient id="witchPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="50%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </linearGradient>
+    <linearGradient id="magentaGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#c026d3"/>
+    </linearGradient>
+    <filter id="glowBayo" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="560" rx="16" fill="url(#bgBayo)"/>
+
+  <!-- Mystic Clock / Occult Circle Background -->
+  <g stroke="#a855f7" stroke-width="0.8" opacity="0.25" transform="translate(200, 220)">
+    <circle r="120" fill="none"/>
+    <circle r="100" fill="none" stroke-dasharray="4 8"/>
+    <circle r="60" fill="none"/>
+    <!-- Clock Hands / Rays -->
+    <line x1="0" y1="-120" x2="0" y2="120"/>
+    <line x1="-120" y1="0" x2="120" y2="0"/>
+    <line x1="-85" y1="-85" x2="85" y2="85"/>
+    <line x1="85" y1="-85" x2="-85" y2="85"/>
+  </g>
+
+  <!-- Outer Frames -->
+  <rect x="18" y="18" width="364" height="524" rx="12" fill="none" stroke="url(#witchPurple)" stroke-width="2.5" opacity="0.8"/>
+  <rect x="26" y="26" width="348" height="508" rx="8" fill="none" stroke="#d8b4fe" stroke-width="0.8" opacity="0.3" stroke-dasharray="6 6"/>
+
+  <!-- Ornate Corner Spirals / Flourishes -->
+  <g fill="none" stroke="#c084fc" stroke-width="2" opacity="0.7">
+    <path d="M 32 50 Q 50 50 50 32"/>
+    <path d="M 368 50 Q 350 50 350 32"/>
+    <path d="M 32 510 Q 50 510 50 528"/>
+    <path d="M 368 510 Q 350 510 350 528"/>
+  </g>
+
+  <!-- Central Butterfly & Crescent Moon Motif -->
+  <g transform="translate(200, 220)">
+    <!-- Crescent Moon Silhouette -->
+    <path d="M 0 -70 A 70 70 0 1 0 70 0 A 55 55 0 1 1 0 -70 Z" fill="url(#magentaGlow)" opacity="0.85" filter="url(#glowBayo)"/>
+
+    <!-- Stylized Geometric Butterfly Wings -->
+    <g fill="none" stroke="#f472b6" stroke-width="2.5" opacity="0.9">
+      <!-- Upper Left Wing -->
+      <path d="M 0 0 C -40 -30, -75 -60, -65 -15 C -55 20, -10 5, 0 0"/>
+      <!-- Upper Right Wing -->
+      <path d="M 0 0 C 40 -30, 75 -60, 65 -15 C 55 20, 10 5, 0 0"/>
+      <!-- Lower Left Wing -->
+      <path d="M 0 0 C -35 15, -55 45, -35 50 C -15 55, -5 20, 0 0"/>
+      <!-- Lower Right Wing -->
+      <path d="M 0 0 C 35 15, 55 45, 35 50 C 15 55, 5 20, 0 0"/>
+    </g>
+
+    <!-- Center Gemstone -->
+    <circle r="7" fill="#f43f5e" stroke="#fdf4ff" stroke-width="1.5" filter="url(#glowBayo)"/>
+  </g>
+
+  <!-- Top Badge -->
+  <g transform="translate(200, 65)">
+    <rect x="-95" y="-14" width="190" height="28" rx="14" fill="#1b0a2e" stroke="#c084fc" stroke-width="1.5" opacity="0.95"/>
+    <text x="0" y="4" text-anchor="middle" fill="#f3e8ff" font-family="'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="11" letter-spacing="2">BAYONETTA • 2009</text>
+  </g>
+
+  <!-- Bottom Identity Area -->
+  <g transform="translate(200, 420)">
+    <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="'Georgia', serif" font-weight="900" font-size="28" letter-spacing="4">BAYONETTA</text>
+    <text x="0" y="24" text-anchor="middle" fill="#e879f9" font-family="'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="13" letter-spacing="3">BRUXA DE UMBRA</text>
+    <line x1="-80" y1="36" x2="80" y2="36" stroke="#c084fc" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="52" text-anchor="middle" fill="#d8b4fe" font-family="'Georgia', serif" font-style="italic" font-size="11" letter-spacing="1">"Witch Time &amp; Elegância"</text>
+  </g>
+</svg>

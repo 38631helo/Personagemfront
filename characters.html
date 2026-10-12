@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gerenciamento de cartas de personagens: cadastro, edição, exclusão, filtros e busca." />
+  <title>Gerenciar Personagens — Game Cards</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Estilos Globais -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header / Barra de Navegação -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-link">
+        <div class="logo-icon">🎮</div>
+        <span>GAME<span style="color: var(--primary-accent);">CARDS</span></span>
+      </a>
+
+      <nav aria-label="Navegação Principal">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link"><span>🃏</span> Início</a></li>
+          <li><a href="characters.html" class="nav-link active"><span>⚙️</span> Gerenciar Coleção</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Status da Conexão com a API -->
+        <div class="api-status-badge" id="apiStatusBadge" title="Status da API REST">
+          <span class="api-status-dot" id="apiStatusDot"></span>
+          <span id="apiStatusText">Verificando...</span>
+        </div>
+
+        <!-- Botão para Configurar URL da API -->
+        <button id="configApiBtn" class="btn btn-secondary btn-sm" title="Configurar URL da API (Local / Vercel)" style="padding: 0.4rem 0.6rem;">
+          ⚙️ API
+        </button>
+
+        <!-- Botão Alternador de Tema -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Alternar entre tema claro e escuro" title="Alternar Tema">
+          ☀️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="container">
+    <section class="manage-header-section">
+      <div class="manage-title-row">
+        <div>
+          <h1 class="manage-title">Catálogo &amp; Gerenciamento</h1>
+          <p style="color: var(--text-secondary); margin-top: 0.25rem;">
+            Cadastre, pesquise, filtre, edite e remova personagens da sua coleção.
+          </p>
+        </div>
+        <div>
+          <button id="addCharacterBtn" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
+            <span>➕</span> Novo Personagem
+          </button>
+        </div>
+      </div>
+
+      <!-- Barra de Filtros, Busca e Ordenação -->
+      <div class="filters-toolbar" role="search" aria-label="Filtros de personagens">
+        <!-- Campo de Busca Textual -->
+        <div class="filter-group" style="grid-column: span 2;">
+          <label for="searchInput" class="filter-label">Pesquisar por Nome ou Jogo</label>
+          <input
+            type="text"
+            id="searchInput"
+            class="form-control"
+            placeholder="Ex: Connor, DOOM, Resident Evil..."
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Filtro por Raridade -->
+        <div class="filter-group">
+          <label for="rarityFilter" class="filter-label">Filtrar por Raridade</label>
+          <select id="rarityFilter" class="form-control">
+            <option value="">Todas as Raridades</option>
+            <option value="Comum">Comum</option>
+            <option value="Incomum">Incomum</option>
+            <option value="Rara">Rara</option>
+            <option value="Épica">Épica</option>
+            <option value="Lendária">Lendária</option>
+            <option value="Mítica">Mítica</option>
+          </select>
+        </div>
+
+        <!-- Ordenação -->
+        <div class="filter-group">
+          <label for="sortSelect" class="filter-label">Ordenar Resultados</label>
+          <select id="sortSelect" class="form-control">
+            <option value="createdAt_desc">Mais recentes primeiro</option>
+            <option value="createdAt_asc">Mais antigos primeiro</option>
+            <option value="price_asc">Preço: Menor para Maior</option>
+            <option value="price_desc">Preço: Maior para Menor</option>
+            <option value="releaseDate_desc">Lançamento: Mais Recente</option>
+            <option value="releaseDate_asc">Lançamento: Mais Antigo</option>
+            <option value="name_asc">Nome do Personagem (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Barra de Alternância de Exibição -->
+    <div class="view-switch-bar">
+      <span class="results-counter" id="resultsCount">Carregando catálogo...</span>
+      <div class="view-buttons">
+        <button id="gridViewBtn" class="view-btn active" title="Visualização em Cards">🎴 Cards</button>
+        <button id="tableViewBtn" class="view-btn" title="Visualização em Tabela">📑 Tabela</button>
+      </div>
+    </div>
+
+    <!-- Container de Estados: Loading, Vazio, Erro -->
+    <div id="manageStatus" style="display: none;"></div>
+
+    <!-- Visualização em Grid de Cards -->
+    <section id="charactersGrid" class="characters-grid" aria-label="Grade de Personagens"></section>
+
+    <!-- Visualização em Tabela -->
+    <div id="charactersTableWrap" class="table-responsive" style="display: none;">
+      <table class="characters-table">
+        <thead>
+          <tr>
+            <th>Miniatura</th>
+            <th>Personagem</th>
+            <th>Jogo de Origem</th>
+            <th>Raridade</th>
+            <th>Lançamento</th>
+            <th>Preço</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="charactersTableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       MODAL DE CADASTRO / EDIÇÃO
+       ========================================== -->
+  <div id="characterModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-title">Cadastrar Novo Personagem</h2>
+        <button id="modalCloseBtn" class="modal-close-btn" aria-label="Fechar">&times;</button>
+      </div>
+
+      <form id="characterForm">
+        <div class="modal-body">
+          <input type="hidden" id="charId" />
+
+          <!-- Nome -->
+          <div class="filter-group">
+            <label for="charName" class="filter-label">Nome do Personagem *</label>
+            <input type="text" id="charName" class="form-control" placeholder="Ex: Geralt de Rívia" required minlength="2" maxlength="100" />
+          </div>
+
+          <!-- Jogo -->
+          <div class="filter-group">
+            <label for="charGame" class="filter-label">Jogo de Origem *</label>
+            <input type="text" id="charGame" class="form-control" placeholder="Ex: The Witcher 3: Wild Hunt" required minlength="2" maxlength="120" />
+          </div>
+
+          <!-- Data de Lançamento e Raridade (em linha) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="filter-group">
+              <label for="charReleaseDate" class="filter-label">Data de Lançamento *</label>
+              <input type="date" id="charReleaseDate" class="form-control" required />
+            </div>
+
+            <div class="filter-group">
+              <label for="charRarity" class="filter-label">Raridade da Carta *</label>
+              <select id="charRarity" class="form-control" required>
+                <option value="Comum">Comum</option>
+                <option value="Incomum">Incomum</option>
+                <option value="Rara">Rara</option>
+                <option value="Épica">Épica</option>
+                <option value="Lendária">Lendária</option>
+                <option value="Mítica">Mítica</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Preço -->
+          <div class="filter-group">
+            <label for="charPrice" class="filter-label">Preço da Carta (R$) *</label>
+            <input type="number" id="charPrice" class="form-control" placeholder="Ex: 49.90" step="0.01" min="0" required />
+          </div>
+
+          <!-- URL ou Caminho da Imagem -->
+          <div class="filter-group">
+            <label for="charImageUrl" class="filter-label">URL ou Caminho da Imagem *</label>
+            <input type="text" id="charImageUrl" class="form-control" placeholder="Ex: assets/placeholders/connor-detroit.svg ou URL web" required />
+            <small style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.25rem;">
+              Selecione um placeholder local rápido ou digite um caminho/URL:
+            </small>
+            <div class="placeholder-suggestions">
+              <span class="placeholder-pill" data-path="assets/placeholders/connor-detroit.svg">Connor (Detroit)</span>
+              <span class="placeholder-pill" data-path="assets/placeholders/arthur-morgan-rdr2.svg">Arthur (RDR2)</span>
+              <span class="placeholder-pill" data-path="assets/placeholders/doom-slayer-doom.svg">Doom Slayer</span>
+              <span class="placeholder-pill" data-path="assets/placeholders/bayonetta.svg">Bayonetta</span>
+              <span class="placeholder-pill" data-path="assets/placeholders/leon-resident-evil.svg">Leon (RE2)</span>
+              <span class="placeholder-pill" data-path="assets/placeholders/default-card.svg">Padrão Geral</span>
+            </div>
+          </div>
+
+          <!-- Descrição Opcional -->
+          <div class="filter-group">
+            <label for="charDescription" class="filter-label">Descrição / Lore (Opcional)</label>
+            <textarea id="charDescription" class="form-control" rows="3" placeholder="Breve biografia ou curiosidade sobre o personagem..." maxlength="1000"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="modalCancelBtn" class="btn btn-secondary">Cancelar</button>
+          <button type="submit" id="modalSaveBtn" class="btn btn-primary">Salvar Personagem</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL DE CONFIRMAÇÃO DE EXCLUSÃO
+       ========================================== -->
+  <div id="deleteModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <h2 id="deleteModalTitle" class="modal-title" style="color: var(--danger);">Confirmar Exclusão</h2>
+        <button id="deleteCloseBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza de que deseja remover o personagem <strong id="deleteCharName"></strong> da coleção?</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem;">
+          Esta ação excluirá permanentemente o registro no banco de dados MongoDB e não poderá ser desfeita.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelDeleteBtn" class="btn btn-secondary">Cancelar</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Sim, Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL DE DETALHES COMPLETOS
+       ========================================== -->
+  <div id="detailModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+    <div class="modal-container" style="max-width: 520px;">
+      <div class="modal-header">
+        <h2 id="detailModalTitle" class="modal-title">Ficha do Personagem</h2>
+        <button id="detailModalClose" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="detailModalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('detailModal').classList.remove('open')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL DE CONFIGURAÇÃO DA URL DA API
+       ========================================== -->
+  <div id="configApiModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="configApiTitle">
+    <div class="modal-container" style="max-width: 480px;">
+      <div class="modal-header">
+        <h2 id="configApiTitle" class="modal-title">Configurar URL da API</h2>
+        <button id="configApiCloseBtn" class="modal-close-btn">&times;</button>
+      </div>
+      <form id="configApiForm">
+        <div class="modal-body">
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Como o frontend pode ser hospedado em um domínio independente da API (ex: Vercel),
+            você pode configurar o endereço da API diretamente aqui sem alterar o código.
+          </p>
+          <div class="filter-group">
+            <label for="apiUrlInput" class="filter-label">Endpoint Base da API</label>
+            <input type="text" id="apiUrlInput" class="form-control" placeholder="http://localhost:5000/api ou https://meu-backend.vercel.app/api" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="resetApiUrlBtn" class="btn btn-secondary" style="margin-right: auto;">Restaurar Padrão</button>
+          <button type="button" id="configApiCancelBtn" class="btn btn-secondary">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar URL</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Container de Toasts -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div>
+        <p><strong>Game Cards</strong> — Colecionáveis Digitais Full Stack</p>
+        <p style="font-size: 0.8rem; margin-top: 0.25rem;">Persistência MongoDB • REST API Express</p>
+      </div>
+      <div>
+        <a href="index.html" style="text-decoration: underline; color: var(--primary-accent);">
+          &larr; Voltar para a Galeria Inicial
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/characters.js"></script>
+</body>
+</html>

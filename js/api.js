@@ -3,7 +3,7 @@
  * Suporta configuração dinâmica da URL base via localStorage ou window.APP_CONFIG.
  */
 
-const DEFAULT_API_BASE_URL = 'http://localhost:5000/api';
+const DEFAULT_API_BASE_URL = 'https://personagemback.vercel.app/';
 
 const apiService = {
   /**
